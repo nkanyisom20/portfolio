@@ -206,15 +206,20 @@
       </div>
     </div>
     <div class="col-md-7">
-      <form class="p-4 border rounded-4 shadow-sm bg-white" action="https://formsubmit.co/mnkanyiso30@gmail.com" method="POST">
-        <input type="text" name="name" class="form-control rounded-pill mb-3" placeholder="Your Name" required>
-        <input type="email" name="email" class="form-control rounded-pill mb-3" placeholder="Your Email" required>
-        <textarea name="message" class="form-control rounded-4 mb-3" rows="4" placeholder="Message" required></textarea>
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_subject" value="New portfolio message from Nkanyiso.dev">
-        <input type="hidden" name="_next" value="https://nkanyisom20.github.io/portfolio/thanks.html">
-        <button type="submit" class="btn btn-primary w-100 rounded-pill py-2">Send Message</button>
-      </form>
+<form class="p-4 border rounded-4 shadow-sm bg-white" action="https://formsubmit.co/mnkanyiso30@gmail.com" method="POST" id="contactForm">	
+<input type="text" name="name" class="form-control rounded-pill mb-3" placeholder="Your Name">
+<input type="email" name="email" class="form-control rounded-pill mb-3" placeholder="Your Email">
+<textarea name="message" class="form-control rounded-4 mb-3" rows="4" placeholder="Message"></textarea>
+
+<!-- stops spam -->
+<input type="hidden" name="_captcha" value="false">
+<!-- email subject -->
+<input type="hidden" name="_subject" value="New portfolio message from Nkanyiso.dev">
+<!-- redirect after send - create a thanks.html page -->
+<input type="hidden" name="_next" value="https://nkanyisom20.github.io/my_portifolio/thanks.html">
+
+<button type="submit" id="sendBtn" class="btn btn-primary w-100 rounded-pill py-2">Send Message</button>
+</form>
     </div>
   </div>  
 </div>
@@ -235,6 +240,47 @@
       bsCollapse.hide();
     });
   });
+</script>
+<script>
+const btn = document.querySelector("#sendBtn");
+const form = document.querySelector("#contactForm");
+
+btn.addEventListener("click", () => {
+  // Change button text while sending
+  btn.textContent = "Sending a message ...";
+  btn.disabled = true;
+
+  // Simulate sending
+  setTimeout(() => {
+    // Create success message at TOP of form
+    // First remove old one if it exists
+    const oldMsg = document.querySelector("#successMsg");
+    if(oldMsg) oldMsg.remove();
+
+    const successDiv = document.createElement("div");
+    successDiv.id = "successMsg";
+    successDiv.textContent = "Message Successfully Sent ?";
+    successDiv.style.background = "#d4edda";
+    successDiv.style.color = "#155724";
+    successDiv.style.padding = "10px";
+    successDiv.style.marginBottom = "15px";
+    successDiv.style.borderRadius = "5px";
+    successDiv.style.textAlign = "center";
+
+    // Insert at the very top of the form
+    form.prepend(successDiv);
+
+    // Reset button
+    btn.textContent = "Send Message";
+    btn.disabled = false;
+
+    // Optional: remove success message after 4 seconds
+    setTimeout(() => {
+      successDiv.remove();
+    }, 4000);
+
+  }, 2000);
+});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
