@@ -223,6 +223,14 @@ contactForm.addEventListener('submit', function(e){
     if(response.ok){
       formStatus.innerHTML = '<div class="alert alert-success">✅ Message Successfully Sent! I will reply soon.</div>';
       contactForm.reset();
+      gtag('event', 'generate_lead', {
+        'event_category': 'Contact',
+        'event_label': 'Portfolio Form',
+        'value': 1
+      });
+      gtag('event', 'form_submission', {
+        'form_name': 'contact_form'
+      });
     } else { throw new Error('Failed'); }
   }).catch(() => {
     formStatus.innerHTML = '<div class="alert alert-danger">❌ Failed to send. Please email me directly at mnkanyiso30@gmail.com</div>';
